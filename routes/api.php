@@ -4,7 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Api\Admin\Auth\LoginController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\Api\Admin\UserController;
+use Symfony\Component\Console\Question\Question;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,4 +36,17 @@ Route::prefix('admin')->group(function() {
         ]);
     });
 });
+
+Route::get('index', [QuestionController::class, 'index']);
+
+Route::resource('questions', QuestionController::class)->only([
+    'index'
+]);
+
+
+
+
+
+
+
 
