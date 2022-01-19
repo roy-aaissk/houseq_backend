@@ -37,11 +37,18 @@ Route::prefix('admin')->group(function() {
     });
 });
 
-Route::get('index', [QuestionController::class, 'index']);
+Route::middleware('jwt')->get('index', [QuestionController::class, 'index']);
 
 Route::resource('questions', QuestionController::class)->only([
     'index'
 ]);
+
+Route::middleware('jwt')->get('/private', function (Request $request) {
+    return response()->json([
+        "autho_user_id" => $request['auth0_user_id'],
+        "message" => "プライベートなエンドポイントへようこそ！これを表示するには有効なIDトークンが必要です。"
+    ]);
+});
 
 
 
